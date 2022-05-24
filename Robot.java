@@ -23,7 +23,7 @@ public class Robot extends Roboter {
         Schritt();
         Umdrehen();
     }
-
+     
     void SchrittLinks (){
         LinksDrehen();
         Schritt();
@@ -33,6 +33,11 @@ public class Robot extends Roboter {
         
         for(int i=0;i<Anzahl;i++){
             Hinlegen();
+        }
+    }
+    void Schritt(int Länge){
+        for(int i=0;i<Länge;i++){
+            Schritt();
         }
     }
     void SchrittRechts (){
@@ -64,56 +69,58 @@ public class Robot extends Roboter {
     
     //Der Roboter legt einen 7x7x7 Quader 
     void Aufgabe2c(){
-       for(int i=0;i<7;i++){
+        
+        int num = 4;
+       for(int k=0;k<num;k++){
             Schritt();
         }
         Umdrehen();
         
-        //comment here
-       for(int n=0;n<7;n++){
+        //chinesische mauer
+       for(int n=0;n<num;n++){
         for(int m=0;m<4;m++){
-           for(int i=0;i<6;i++){
+           for(int i=0;i<num-1;i++){
             Hinlegen();
             Schritt();
             }
             RechtsDrehen();
         }
       }
-        for(int a=0;a<5;a++){
+        for(int a=0;a<num-2;a++){
            SchrittRechts();
-           for(int x=0;x<7;x++){
+           for(int x=0;x<num;x++){
                Hinlegen();
            }
         }
       Schritt();
       SchrittRechts();
-        for(int a=0;a<5;a++){
+        for(int a=0;a<num-2;a++){
            SchrittLinks();
-           for(int x=0;x<7;x++){
+           for(int x=0;x<num;x++){
                Hinlegen();
            }
         }
       Schritt();
       SchrittLinks();
-        for(int a=0;a<5;a++){
+        for(int a=0;a<num-2;a++){
            SchrittRechts();
-           for(int x=0;x<7;x++){
+           for(int x=0;x<num;x++){
                Hinlegen();
            }
         }
       Schritt();
       SchrittRechts();
-        for(int a=0;a<5;a++){
+        for(int a=0;a<num-2;a++){
            SchrittLinks();
-           for(int x=0;x<7;x++){
+           for(int x=0;x<num;x++){
               Hinlegen();
            }
         }
       Schritt();
       SchrittLinks();
-        for(int a=0;a<5;a++){
+        for(int a=0;a<num-2;a++){
            SchrittRechts();
-           for(int x=0;x<7;x++){
+           for(int x=0;x<num;x++){
                Hinlegen();
            }
         }
@@ -123,10 +130,10 @@ public class Robot extends Roboter {
       SchrittRechts();
       RechtsDrehen();
       
-      Hinlegen(6);
+      Hinlegen(num-1);
       Schritt();
-      Hinlegen(5);
-      for(int e=0;e<5;e++){
+      Hinlegen(num-2);
+      for(int e=0;e<num-2;e++){
          Schritt();
          Umdrehen();
          Aufheben();
@@ -142,18 +149,137 @@ public class Robot extends Roboter {
     }
       
     
-
-    
-
-    
-
     //Der Roboter legt einen 7x7x7 Quader 
     void Aufgabe2d(){
+        
+        
 
     }
 
     //Aufgabe 2f)
     void QuaderLegen(int l, int b, int h){
 
+    }
+    //HimmelsRichtungen
+    void Sueden(){
+        if (IstBlickSueden()){
+            return;
+        }
+        if (IstBlickNorden()){
+            Umdrehen();
+        }
+        if (IstBlickWesten()){
+            LinksDrehen();
+        }
+        if (IstBlickOsten()){
+            RechtsDrehen();
+        }
+    }  
+    void Osten(){
+        if (IstBlickOsten()){
+            return;
+        }
+        if (IstBlickWesten()){
+            Umdrehen();
+        }
+        if (IstBlickNorden()){
+            RechtsDrehen();
+        }
+        if (IstBlickSueden()){
+            LinksDrehen();
+        }
+    }
+    void Westen(){
+        if (IstBlickWesten()){
+            return;
+        }
+        if (IstBlickOsten()){
+            Umdrehen();
+        }
+        if (IstBlickSueden()){
+            RechtsDrehen();
+        }
+        if (IstBlickNorden()){
+            LinksDrehen();
+        }
+     }
+    void Norden(){
+        if (IstBlickNorden()){
+            return;
+        }
+        if (IstBlickSueden()){
+            Umdrehen();
+        }
+        if (IstBlickOsten()){
+            LinksDrehen();
+        }
+        if (IstBlickWesten()){
+            RechtsDrehen();
+        }
+    }
+    void GeheZuStartposition(){
+        Westen();
+        while (! IstWand()){
+            Schritt();
+        }
+        
+        Norden();
+        while (! IstWand()){
+            Schritt();
+        }
+       
+        Sueden();
+    }
+    void GeheZuBauposition(int Länge){
+        Schritt(Länge-1);
+        Umdrehen();
+        MarkeSetzen();
+    }
+       void Mauer(int Länge){
+       if (Länge==1){
+            Umdrehen();
+            Schritt();
+            Umdrehen();
+            Hinlegen();
+            return;
+        }
+       //for (int m=0;m<Länge/2;m++){
+             for (int n=0;n<4;n++){
+                 for(int i=0;i<Länge-1;i++){
+                    
+                    Hinlegen();
+                    Schritt();
+                 }
+            RechtsDrehen();
+           }
+           //SchrittRechts();
+           //Schritt();
+       //}
+    }
+    void Aufgabe2c1(){
+        int Länge=8;
+        int Höhe=4;
+        //GeheZuStartposition();
+        GeheZuBauposition(Länge);
+        
+        // Mauer(Länge);
+        // SchrittRechts();
+        // Schritt();
+        // Mauer(Länge-2);
+        // SchrittRechts();
+        // Schritt();
+        // Mauer(Länge-4);
+        
+        for (int h=0; h<Höhe; h++) {
+        
+           for (int i=0;i<Länge/2+1;i++){
+               Mauer(Länge-i*2);
+               SchrittRechts();
+               Schritt();
+           }
+           GeheZuStartposition();
+           GeheZuBauposition(Länge);
+        }
+    
     }
 }
