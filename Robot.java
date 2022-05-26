@@ -158,8 +158,67 @@ public class Robot extends Roboter {
 
     //Aufgabe 2f)
     void QuaderLegen(int l, int b, int h){
-
+       if (b==1){
+           GeheZuBauposition(b);
+           Zurueck();
+           Hinlegen();
+           Schritt();
+           RechtsDrehen();
+           for (int m=0;m<h;m++){
+              BesondrerReihe(l);
+              Umdrehen();
+              Schritt();
+              Umdrehen();
+              Hinlegen();
+              Schritt();
+              Umdrehen();
+           }
+           Schritt();
+           Umdrehen();
+           Aufheben();
+           GeheZuStartposition();
+           return;
+       }
+        for (int n=0;n<h;n++){
+           GeheZuBauposition(b);
+           Reihe(b-1);
+           Reihe(l-1);
+           Reihe(b-1);
+           Reihe(l-1);
+           GeheZuPosition(l, b, h);
+           Füllung(l, b, h);
+           GeheZuStartposition();
+       }
     }
+    void BesondrerReihe(int l){
+        for ( int n=0;n<l-1;n++){
+        Hinlegen();
+        Schritt();
+       }
+    }
+    void Reihe(int s){
+        for (int i=0;i<s;i++){
+            Hinlegen();
+            Schritt();
+        }
+        RechtsDrehen();
+    }
+    void GeheZuPosition(int l,int b,int h){
+        RechtsDrehen();
+        Schritt(l-2);
+        LinksDrehen();
+    }
+    void Füllung(int l, int b, int h){
+        for(int n=0;n<b-2;n++){
+            for(int i=0;i<l-2;i++){
+               Hinlegen();
+               SchrittLinks();
+            }
+            GeheZuPosition(l, b, h);
+            Schritt();
+       }
+    }
+    
     //HimmelsRichtungen
     void Sueden(){
         if (IstBlickSueden()){
